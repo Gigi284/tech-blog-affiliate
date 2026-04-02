@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Blog - Guide e Recensioni di Tecnologia</title>
+    <meta name="description" content="Il miglior blog di tecnologia con guide, recensioni e tutorial su smartphone, laptop, accessori e gadget tech.">
+    <meta name="keywords" content="tecnologia, smartphone, laptop, gadget, recensioni tech, guide tecnologia">
+    <meta name="author" content="Tech Blog">
+    <meta property="og:title" content="Tech Blog - Guide e Recensioni di Tecnologia">
+    <meta property="og:description" content="Scopri le migliori guide e recensioni di tecnologia">
+    <meta property="og:type" content="website">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .search-box {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 2rem;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.95rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+        }
+        
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .article-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        .article-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .article-content {
+            padding: 1.5rem;
+        }
+        
+        .article-category {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .article-title {
+            font-size: 1.3rem;
+            margin: 0.5rem 0;
+            color: #333;
+        }
+        
+        .article-excerpt {
+            color: #666;
+            font-size: 0.95rem;
+            margin: 0.8rem 0;
+            line-height: 1.5;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .read-more {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .read-more:hover {
+            background: #764ba2;
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .sidebar-widget {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .popular-articles {
+            list-style: none;
+        }
+        
+        .popular-articles li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .popular-articles li:last-child {
+            border-bottom: none;
+        }
+        
+        .popular-articles a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        
+        .popular-articles a:hover {
+            text-decoration: underline;
+        }
+        
+        .adsense-placeholder {
+            background: #f0f0f0;
+            border: 2px dashed #ccc;
+            padding: 1rem;
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+            border-radius: 5px;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .search-box {
+                max-width: 100%;
+                margin: 1rem 0 0 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="/" class="logo">🚀 Tech Blog</a>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Cerca articoli...">
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <main>
+            <div class="articles-grid" id="articlesGrid"></div>
+        </main>
+        
+        <aside class="sidebar">
+            <div class="sidebar-widget">
+                <h3 class="sidebar-title">📰 Articoli Popolari</h3>
+                <ul class="popular-articles" id="popularArticles"></ul>
+            </div>
+            <div class="sidebar-widget">
+                <div class="adsense-placeholder">Google AdSense</div>
+            </div>
+        </aside>
+    </div>
+    
+    <footer>
+        <p>&copy; 2026 Tech Blog. Tutti i diritti riservati. | Link di affiliazione Amazon</p>
+    </footer>
+    
+    <script>
+        // Dati degli articoli con link di affiliazione Amazon
+        const articles = [
+            {
+                id: 1,
+                title: "iPhone 15 Pro Max: La Migliore Fotocamera Smartphone del 2026",
+                category: "Smartphone",
+                excerpt: "Scopri le incredibili capacità fotografiche dell'iPhone 15 Pro Max con il nuovo sensore da 48MP e la stabilizzazione ottica avanzata.",
+                icon: "📱",
+                date: "15 Mar 2026",
+                views: "2.5K visualizzazioni",
+                link: "https://amzn.to/4cbjg8V"
+            },
+            {
+                id: 2,
+                title: "MacBook Pro M4: Prestazioni Incredibili per Professionisti",
+                category: "Laptop",
+                excerpt: "Analisi completa del nuovo MacBook Pro con chip M4: velocità, batteria e design rivoluzionario.",
+                icon: "💻",
+                date: "12 Mar 2026",
+                views: "3.1K visualizzazioni",
+                link: "https://amzn.to/4lYatuh"
+            },
+            {
+                id: 3,
+                title: "AirPods Pro 3: Cancellazione del Rumore Perfetta",
+                category: "Accessori",
+                excerpt: "Revisione dettagliata dei nuovi AirPods Pro 3 con tecnologia di cancellazione del rumore di nuova generazione.",
+                icon: "🎧",
+                date: "10 Mar 2026",
+                views: "1.8K visualizzazioni",
+                link: "https://amzn.to/4bNT2YU"
+            },
+            {
+                id: 4,
+                title: "Samsung Galaxy S25 Ultra: Sfida Diretta all'iPhone",
+                category: "Smartphone",
+                excerpt: "Confronto dettagliato tra Samsung Galaxy S25 Ultra e iPhone 15 Pro Max: quale scegliere?",
+                icon: "📲",
+                date: "8 Mar 2026",
+                views: "4.2K visualizzazioni",
+                link: "https://amzn.to/3Nutic4"
+            },
+            {
+                id: 5,
+                title: "Guida Completa: Come Scegliere il Miglior Monitor 4K",
+                category: "Accessori",
+                excerpt: "Scopri i migliori monitor 4K del 2026 per gaming, editing video e lavoro professionale.",
+                icon: "🖥️",
+                date: "5 Mar 2026",
+                views: "2.9K visualizzazioni",
+                link: "https://amzn.to/411NuFa"
+            },
+            {
+                id: 6,
+                title: "iPad Pro 2026: Tablet Perfetto per Creativi",
+                category: "Tablet",
+                excerpt: "Scopri perché l'iPad Pro 2026 è il miglior tablet per designer, illustratori e content creator.",
+                icon: "📱",
+                date: "2 Mar 2026",
+                views: "2.1K visualizzazioni",
+                link: "https://amzn.to/3PELmkf"
+            },
+            {
+                id: 7,
+                title: "Smartwatch Garmin Epix Gen 2: Fitness e Stile",
+                category: "Wearable",
+                excerpt: "Analisi dello smartwatch Garmin Epix Gen 2: GPS, batteria lunga e design elegante.",
+                icon: "⌚",
+                date: "28 Feb 2026",
+                views: "1.5K visualizzazioni",
+                link: "https://amzn.to/3NUAle1"
+            },
+            {
+                id: 8,
+                title: "Fotocamera Sony A7R V: La Scelta dei Professionisti",
+                category: "Fotografia",
+                excerpt: "Revisione completa della Sony A7R V: sensore full-frame, autofocus AI e video 8K.",
+                icon: "📷",
+                date: "25 Feb 2026",
+                views: "1.2K visualizzazioni",
+                link: "https://amzn.to/4s3RMqJ"
+            },
+            {
+                id: 9,
+                title: "Router WiFi 7: Velocità Ultrasonica per la Casa",
+                category: "Networking",
+                excerpt: "Scopri i migliori router WiFi 7 per una connessione internet ultra-veloce in tutta la casa.",
+                icon: "📡",
+                date: "22 Feb 2026",
+                views: "1.8K visualizzazioni",
+                link: "https://amzn.to/4uZHE4V"
+            },
+            {
+                id: 10,
+                title: "SSD NVMe 2TB: Velocità Fulminea per il Tuo PC",
+                category: "Storage",
+                excerpt: "Guida ai migliori SSD NVMe 2TB: velocità di lettura fino a 7000 MB/s per gaming e lavoro.",
+                icon: "💾",
+                date: "20 Feb 2026",
+                views: "2.3K visualizzazioni",
+                link: "https://amzn.to/4bfHJQO"
+            }
+        ];
+        
+        // Funzione per renderizzare gli articoli
+        function renderArticles(articlesToShow = articles) {
+            const grid = document.getElementById('articlesGrid');
+            grid.innerHTML = '';
+            
+            articlesToShow.forEach(article => {
+                const card = document.createElement('div');
+                card.className = 'article-card';
+                card.innerHTML = `
+                    <div class="article-image">${article.icon}</div>
+                    <div class="article-content">
+                        <span class="article-category">${article.category}</span>
+                        <h2 class="article-title">${article.title}</h2>
+                        <p class="article-excerpt">${article.excerpt}</p>
+                        <div class="article-meta">
+                            <span>${article.date}</span>
+                            <span>${article.views}</span>
+                        </div>
+                        <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="read-more">Leggi di Più</a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+        
+        // Funzione per renderizzare gli articoli popolari
+        function renderPopularArticles() {
+            const list = document.getElementById('popularArticles');
+            list.innerHTML = '';
+            
+            const topArticles = articles.slice(0, 5);
+            topArticles.forEach(article => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="${article.link}" target="_blank" rel="noopener noreferrer">${article.title}</a>`;
+                list.appendChild(li);
+            });
+        }
+        
+        // Funzione di ricerca
+        document.getElementById('searchInput').addEventListener('keyup', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = articles.filter(article => 
+                article.title.toLowerCase().includes(searchTerm) ||
+                article.excerpt.toLowerCase().includes(searchTerm) ||
+                article.category.toLowerCase().includes(searchTerm)
+            );
+            renderArticles(filtered);
+        });
+        
+        // Inizializzazione
+        renderArticles();
+        renderPopularArticles();
+    </script>
+</body>
+</html>
