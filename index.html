@@ -50,10 +50,15 @@
             color: white;
         }
         
+        .header-right {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
         .search-box {
             flex: 1;
             max-width: 400px;
-            margin: 0 2rem;
         }
         
         .search-box input {
@@ -62,6 +67,21 @@
             border: none;
             border-radius: 5px;
             font-size: 0.95rem;
+        }
+        
+        .admin-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        
+        .admin-btn:hover {
+            background: rgba(255,255,255,0.3);
         }
         
         .container {
@@ -226,6 +246,176 @@
             display: none;
         }
         
+        /* Admin Panel Styles */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .admin-content {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 1rem;
+        }
+        
+        .admin-header h2 {
+            color: #667eea;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .login-form, .admin-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .form-group input, .form-group textarea, .form-group select {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #764ba2;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+        
+        .admin-products {
+            margin-top: 2rem;
+        }
+        
+        .product-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .product-info {
+            flex: 1;
+        }
+        
+        .product-info h4 {
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+        
+        .product-info p {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-small {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+        
+        .message {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
         @media (max-width: 768px) {
             .container {
                 grid-template-columns: 1fr;
@@ -240,9 +430,17 @@
                 gap: 1rem;
             }
             
+            .header-right {
+                width: 100%;
+                flex-direction: column;
+            }
+            
             .search-box {
                 max-width: 100%;
-                margin: 1rem 0 0 0;
+            }
+            
+            .admin-content {
+                width: 95%;
             }
         }
     </style>
@@ -251,8 +449,11 @@
     <header>
         <div class="header-content">
             <a href="/" class="logo">🚀 Tech Blog</a>
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Cerca articoli...">
+            <div class="header-right">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Cerca articoli...">
+                </div>
+                <button class="admin-btn" onclick="openAdminPanel()">🔐 Admin</button>
             </div>
         </div>
     </header>
@@ -277,9 +478,72 @@
         <p>&copy; 2026 Tech Blog. Tutti i diritti riservati. | Link di affiliazione Amazon</p>
     </footer>
     
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel hidden">
+        <div class="admin-content">
+            <div class="admin-header">
+                <h2 id="adminTitle">Accedi</h2>
+                <button class="close-btn" onclick="closeAdminPanel()">✕</button>
+            </div>
+            
+            <div id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" placeholder="Inserisci la password">
+                </div>
+                <button class="btn btn-primary" onclick="loginAdmin()">Accedi</button>
+            </div>
+            
+            <div id="adminArea" class="hidden">
+                <div id="message"></div>
+                
+                <div class="admin-form">
+                    <h3>Aggiungi Nuovo Prodotto</h3>
+                    <div class="form-group">
+                        <label for="productTitle">Titolo:</label>
+                        <input type="text" id="productTitle" placeholder="Es: iPhone 15 Pro Max">
+                    </div>
+                    <div class="form-group">
+                        <label for="productCategory">Categoria:</label>
+                        <select id="productCategory">
+                            <option>Smartphone</option>
+                            <option>Laptop</option>
+                            <option>Accessori</option>
+                            <option>Tablet</option>
+                            <option>Wearable</option>
+                            <option>Fotografia</option>
+                            <option>Networking</option>
+                            <option>Storage</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="productExcerpt">Descrizione:</label>
+                        <textarea id="productExcerpt" placeholder="Descrizione breve del prodotto"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="productIcon">Emoji/Icona:</label>
+                        <input type="text" id="productIcon" placeholder="Es: 📱" maxlength="2">
+                    </div>
+                    <div class="form-group">
+                        <label for="productLink">Link Amazon:</label>
+                        <input type="text" id="productLink" placeholder="https://amzn.to/...">
+                    </div>
+                    <button class="btn btn-primary" onclick="addProduct()">Aggiungi Prodotto</button>
+                </div>
+                
+                <div class="admin-products">
+                    <h3>Prodotti Attuali</h3>
+                    <div id="productsList"></div>
+                </div>
+                
+                <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;" onclick="logoutAdmin()">Esci</button>
+            </div>
+        </div>
+    </div>
+    
     <script>
         // Dati degli articoli con link di affiliazione Amazon
-        const articles = [
+        let articles = [
             {
                 id: 1,
                 title: "iPhone 15 Pro Max: La Migliore Fotocamera Smartphone del 2026",
@@ -382,6 +646,22 @@
             }
         ];
         
+        let isAdminLoggedIn = false;
+        const ADMIN_PASSWORD = "admin123"; // Cambiar questa password!
+        
+        // Carica i dati dal localStorage
+        function loadArticles() {
+            const saved = localStorage.getItem('techBlogArticles');
+            if (saved) {
+                articles = JSON.parse(saved);
+            }
+        }
+        
+        // Salva i dati nel localStorage
+        function saveArticles() {
+            localStorage.setItem('techBlogArticles', JSON.stringify(articles));
+        }
+        
         // Funzione per renderizzare gli articoli
         function renderArticles(articlesToShow = articles) {
             const grid = document.getElementById('articlesGrid');
@@ -431,7 +711,120 @@
             renderArticles(filtered);
         });
         
+        // Admin Panel Functions
+        function openAdminPanel() {
+            document.getElementById('adminPanel').classList.remove('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('adminArea').classList.add('hidden');
+        }
+        
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').classList.add('hidden');
+            document.getElementById('message').innerHTML = '';
+        }
+        
+        function loginAdmin() {
+            const password = document.getElementById('password').value;
+            if (password === ADMIN_PASSWORD) {
+                isAdminLoggedIn = true;
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('adminArea').classList.remove('hidden');
+                document.getElementById('adminTitle').textContent = 'Pannello Admin';
+                renderProductsList();
+                document.getElementById('password').value = '';
+            } else {
+                showMessage('Password non corretta!', 'error');
+            }
+        }
+        
+        function logoutAdmin() {
+            isAdminLoggedIn = false;
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('adminArea').classList.add('hidden');
+            document.getElementById('adminTitle').textContent = 'Accedi';
+            document.getElementById('password').value = '';
+            document.getElementById('message').innerHTML = '';
+        }
+        
+        function addProduct() {
+            const title = document.getElementById('productTitle').value.trim();
+            const category = document.getElementById('productCategory').value;
+            const excerpt = document.getElementById('productExcerpt').value.trim();
+            const icon = document.getElementById('productIcon').value.trim();
+            const link = document.getElementById('productLink').value.trim();
+            
+            if (!title || !excerpt || !icon || !link) {
+                showMessage('Compila tutti i campi!', 'error');
+                return;
+            }
+            
+            const newProduct = {
+                id: Math.max(...articles.map(a => a.id), 0) + 1,
+                title,
+                category,
+                excerpt,
+                icon,
+                date: new Date().toLocaleDateString('it-IT', { year: 'numeric', month: 'short', day: 'numeric' }),
+                views: "Nuovo",
+                link
+            };
+            
+            articles.push(newProduct);
+            saveArticles();
+            renderArticles();
+            renderPopularArticles();
+            renderProductsList();
+            
+            document.getElementById('productTitle').value = '';
+            document.getElementById('productExcerpt').value = '';
+            document.getElementById('productIcon').value = '';
+            document.getElementById('productLink').value = '';
+            
+            showMessage('Prodotto aggiunto con successo!', 'success');
+        }
+        
+        function deleteProduct(id) {
+            if (confirm('Sei sicuro di voler eliminare questo prodotto?')) {
+                articles = articles.filter(a => a.id !== id);
+                saveArticles();
+                renderArticles();
+                renderPopularArticles();
+                renderProductsList();
+                showMessage('Prodotto eliminato!', 'success');
+            }
+        }
+        
+        function renderProductsList() {
+            const list = document.getElementById('productsList');
+            list.innerHTML = '';
+            
+            articles.forEach(article => {
+                const item = document.createElement('div');
+                item.className = 'product-item';
+                item.innerHTML = `
+                    <div class="product-info">
+                        <h4>${article.icon} ${article.title}</h4>
+                        <p>${article.category}</p>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-danger btn-small" onclick="deleteProduct(${article.id})">Elimina</button>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+        
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            setTimeout(() => {
+                messageDiv.innerHTML = '';
+            }, 3000);
+        }
+        
         // Inizializzazione
+        loadArticles();
         renderArticles();
         renderPopularArticles();
     </script>
